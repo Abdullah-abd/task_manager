@@ -1,0 +1,52 @@
+# -----------------------------------------
+# Node / Express (Backend)
+# -----------------------------------------
+node_modules/
+backend/node_modules/
+backend/.env
+backend/.env.local
+backend/dist/
+backend/build/
+backend/logs/
+backend/tmp/
+
+# PM2 logs
+.pids
+*.log
+
+# -----------------------------------------
+# React (Frontend)
+# -----------------------------------------
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+frontend/dist/
+frontend/build/
+
+# Vite cache
+frontend/.vite/
+
+# React coverage
+frontend/coverage/
+
+# -----------------------------------------
+# OS / Editor Files
+# -----------------------------------------
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# -----------------------------------------
+# Misc
+# -----------------------------------------
+*.cache
+*.zip
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
