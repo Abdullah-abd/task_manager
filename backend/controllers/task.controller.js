@@ -32,8 +32,32 @@ export const createTask = async (req, res, next) => {
 // Get All Tasks
 export const getAllTasks = async (req, res, next) => {
   try {
-    const tasks = await Task.find().sort({ createdAt: -1 });
-    res.status(200).json({ success: true, tasks });
+    // page number (default 1)
+    const page = parseInt(req.query.page) || 1;
+
+    // limit (default 10)
+    const limit = parseInt(req.query.limit) || 10;
+
+    // calculate skip
+    const skip = (page - 1) * limit;
+
+    // total task count (for frontend pagination UI)
+    const totalTasks = await Task.countDocuments();
+
+    // fetch paginated tasks
+    const tasks = await Task.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      success: true,
+      page,
+      limit,
+      totalTasks,
+      totalPages: Math.ceil(totalTasks / limit),
+      tasks,
+    });
   } catch (err) {
     next(err);
   }
