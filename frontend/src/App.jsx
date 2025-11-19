@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import Landing from "./pages/Landing";
+import Login from "./pages/login.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
+
+  // Load user from storage on refresh
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Failed to parse user:", error);
+      }
+    }
+  }, []);
 
   return (
     <>
-      <h1 className="text-center text-3xl text-blue-500 ">Counter: {count}</h1>
-      <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={() => setCount(count + 1)}
-      >
-        Increment
-      </button>
+      {!user ? (
+        <Login onLoginSuccess={(userData) => setUser(userData)} />
+      ) : (
+        <Landing user={user} />
+      )}
     </>
   );
 }
