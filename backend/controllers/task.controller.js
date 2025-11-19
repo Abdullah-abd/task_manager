@@ -32,8 +32,32 @@ export const createTask = async (req, res, next) => {
 // Get All Tasks
 export const getAllTasks = async (req, res, next) => {
   try {
-    const tasks = await Task.find().sort({ createdAt: -1 });
-    res.status(200).json({ success: true, tasks });
+    // page number (default 1)
+    const page = parseInt(req.query.page) || 1;
+
+    // limit (default 10)
+    const limit = parseInt(req.query.limit) || 10;
+
+    // calculate skip
+    const skip = (page - 1) * limit;
+
+    // total task count (for frontend pagination UI)
+    const totalTasks = await Task.countDocuments();
+
+    // fetch paginated tasks
+    const tasks = await Task.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      success: true,
+      page,
+      limit,
+      totalTasks,
+      totalPages: Math.ceil(totalTasks / limit),
+      tasks,
+    });
   } catch (err) {
     next(err);
   }
@@ -81,6 +105,28 @@ export const updateTask = async (req, res, next) => {
       success: true,
       message: "Task updated successfully",
       task: updatedTask,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+// Delete Task
+export const deleteTask = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ success: false, error: "Invalid task id" });
+    }
+
+    const task = await Task.findByIdAndDelete(id);
+
+    if (!task)
+      return res.status(404).json({ success: false, error: "Task not found" });
+
+    res.status(200).json({
+      success: true,
+      message: "Task deleted successfully",
     });
   } catch (err) {
     next(err);
