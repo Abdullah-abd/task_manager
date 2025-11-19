@@ -2,11 +2,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
+import connectDB from "./config/db.js";
+
 // import authRoutes from "./routes/auth.routes.js";
 // import taskRoutes from "./routes/task.routes.js";
 
 dotenv.config();
-
+connectDB();
 const app = express();
 
 app.use(cors());
