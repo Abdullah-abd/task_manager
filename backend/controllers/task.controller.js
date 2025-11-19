@@ -1,4 +1,5 @@
 // controllers/task.controller.js
+import mongoose from "mongoose";
 import Task from "../models/task.model.js";
 
 // Create Task
@@ -33,6 +34,27 @@ export const getAllTasks = async (req, res, next) => {
   try {
     const tasks = await Task.find().sort({ createdAt: -1 });
     res.status(200).json({ success: true, tasks });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ----- GET SINGLE TASK (improved) -----
+export const getTask = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    // Validate MongoDB ObjectId first
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ success: false, error: "Invalid task id" });
+    }
+
+    const task = await Task.findById(id);
+    if (!task) {
+      return res.status(404).json({ success: false, error: "Task not found" });
+    }
+
+    res.status(200).json({ success: true, task });
   } catch (err) {
     next(err);
   }
