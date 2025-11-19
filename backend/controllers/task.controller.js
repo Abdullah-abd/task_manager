@@ -27,3 +27,13 @@ export const createTask = async (req, res, next) => {
     next(err);
   }
 };
+
+// Get All Tasks
+export const getAllTasks = async (req, res, next) => {
+  try {
+    const tasks = await Task.find().sort({ createdAt: -1 });
+    res.status(200).json({ success: true, tasks });
+  } catch (err) {
+    next(err);
+  }
+};
