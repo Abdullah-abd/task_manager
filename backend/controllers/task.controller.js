@@ -59,3 +59,30 @@ export const getTask = async (req, res, next) => {
     next(err);
   }
 };
+
+// Update Task
+export const updateTask = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ success: false, error: "Invalid task id" });
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedTask)
+      return res.status(404).json({ success: false, error: "Task not found" });
+
+    res.status(200).json({
+      success: true,
+      message: "Task updated successfully",
+      task: updatedTask,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
