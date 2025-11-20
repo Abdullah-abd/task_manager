@@ -24,16 +24,21 @@ export async function getTaskById(id) {
 // Create new task
 // -------------------------
 export async function createTask(taskData) {
-  const res = await fetch(BASE_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(taskData),
-  });
+  try {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(taskData),
+    });
 
-  if (!res.ok) throw new Error("Failed to create task");
-  return await res.json();
+    if (!res.ok) throw new Error("Server responded with an error");
+
+    return await res.json();
+  } catch (err) {
+    throw new Error("Failed to fetch");
+  }
 }
 
 // -------------------------
