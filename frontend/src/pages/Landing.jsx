@@ -1,24 +1,51 @@
-import Sidebar from "../components/sidebar.jsx";
+import { useState } from "react";
+import Sidebar from "../components/sidebar";
+import TaskList from "../components/TaskList";
 
-export default function Landing({ user }) {
-  const handleMenuSelect = (tab) => {
-    console.log("Selected:", tab);
-    // TODO: update main area based on tab
+export default function Landing() {
+  const [selectedTab, setSelectedTab] = useState("dashboard");
+
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Build Assignment Updated",
+      description: "Work on MERN task manager assignment",
+      status: "completed",
+    },
+    {
+      id: 2,
+      title: "New UI Screen",
+      description: "Create task cards & dashboard UI",
+      status: "pending",
+    },
+  ]);
+
+  const getFilteredTasks = () => {
+    if (selectedTab === "dashboard") return tasks;
+    return tasks.filter((t) => t.status === selectedTab);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.reload(); // simple logout
+  const onAddTask = () => alert("Add Task modal coming soon!");
+
+  const onEditTask = (task) => {
+    alert("Editing task: " + task.title);
+    // open modal here
+  };
+
+  const onDeleteTask = (id) => {
+    setTasks(tasks.filter((t) => t.id !== id));
   };
 
   return (
     <div className="flex">
-      <Sidebar onSelect={handleMenuSelect} onLogout={handleLogout} />
+      <Sidebar onSelect={setSelectedTab} onLogout={() => {}} />
 
-      <div className="flex-1 p-6">
-        <h2 className="text-2xl font-semibold">Welcome, {user.name}</h2>
-        <p className="text-gray-600 mt-2">Your tasks will appear here.</p>
-      </div>
+      <TaskList
+        tasks={getFilteredTasks()}
+        onAddTask={onAddTask}
+        onEditTask={onEditTask}
+        onDeleteTask={onDeleteTask}
+      />
     </div>
   );
 }
