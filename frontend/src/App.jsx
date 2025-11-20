@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import "./App.css";
 import Landing from "./pages/Landing";
 import Login from "./pages/login.jsx";
-
 function App() {
   const [user, setUser] = useState(null);
 
@@ -23,7 +23,11 @@ function App() {
       {!user ? (
         <Login onLoginSuccess={(userData) => setUser(userData)} />
       ) : (
-        <Landing user={user} />
+        <div>
+          {" "}
+          <Toaster position="top-center" />
+          <Landing user={user} />
+        </div>
       )}
     </>
   );

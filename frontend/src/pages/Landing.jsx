@@ -5,47 +5,15 @@ import TaskList from "../components/TaskList";
 export default function Landing() {
   const [selectedTab, setSelectedTab] = useState("dashboard");
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Build Assignment Updated",
-      description: "Work on MERN task manager assignment",
-      status: "completed",
-    },
-    {
-      id: 2,
-      title: "New UI Screen",
-      description: "Create task cards & dashboard UI",
-      status: "pending",
-    },
-  ]);
-
-  const getFilteredTasks = () => {
-    if (selectedTab === "dashboard") return tasks;
-    return tasks.filter((t) => t.status === selectedTab);
-  };
-
-  const onAddTask = () => alert("Add Task modal coming soon!");
-
-  const onEditTask = (task) => {
-    alert("Editing task: " + task.title);
-    // open modal here
-  };
-
-  const onDeleteTask = (id) => {
-    setTasks(tasks.filter((t) => t.id !== id));
-  };
-
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row">
+      {/* Sidebar on top for mobile, left for desktop */}
       <Sidebar onSelect={setSelectedTab} onLogout={() => {}} />
 
-      <TaskList
-        tasks={getFilteredTasks()}
-        onAddTask={onAddTask}
-        onEditTask={onEditTask}
-        onDeleteTask={onDeleteTask}
-      />
+      {/* Right section */}
+      <div className="flex-1">
+        <TaskList selectedTab={selectedTab} />
+      </div>
     </div>
   );
 }

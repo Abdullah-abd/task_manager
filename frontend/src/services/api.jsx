@@ -1,11 +1,13 @@
-const BASE_URL = "http://localhost:5000/api/tasks";
+const BASE_URL = "https://task-manager-7yde.onrender.com/api/tasks";
 
 // -------------------------
 // Get all tasks
 // -------------------------
-export async function getAllTasks() {
-  const res = await fetch(BASE_URL);
+export async function getAllTasks(page = 1, limit = 10) {
+  const res = await fetch(`${BASE_URL}?page=${page}&limit=${limit}`);
+
   if (!res.ok) throw new Error("Failed to fetch tasks");
+
   return await res.json();
 }
 
