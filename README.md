@@ -1,65 +1,51 @@
 📌 Task Manager – MERN Stack (Frontend + Backend)
-
 A responsive Task Manager application built using the MERN stack with clean folder structure, backend pagination, and a static dummy user (no token authentication).
-The app allows users to create, edit, delete, search, and filter tasks with status categories.
+The app supports creating, editing, deleting, searching, and filtering tasks by status.
 
 🚀 Live URLs
-Frontend (React + Tailwind + Vite)
 
+Frontend (React + Tailwind + Vite)
 👉 https://task-manager-sable-chi.vercel.app/
 
 Backend (Node.js + Express + MongoDB Atlas)
-
 👉 https://task-manager-7yde.onrender.com/
 
 📘 API Endpoints
+
 Get All Tasks (Paginated)
 GET /api/tasks
 
 Get Single Task
 GET /api/tasks/:id
 
-
 Example:
 https://task-manager-7yde.onrender.com/api/tasks/ID_HERE
 
 🛠️ Tech Stack
-Frontend
 
-React (Vite)
+Frontend: React (Vite), TailwindCSS, Lucide Icons
+Backend: Node.js, Express.js, MongoDB Atlas, Mongoose
 
-TailwindCSS
+Other Features:
 
-Lucide Icons
+Responsive UI
 
-Backend
+Backend-based pagination
 
-Node.js
+Static dummy user (no JWT)
 
-Express.js
+Clean folder structure
 
-MongoDB Atlas
+Modal-based task CRUD
 
-Mongoose
+Toast-based validation
 
-Other Features
-
-Responsive UI (Mobile + Desktop)
-
-Pagination handled on the backend
-
-Static dummy user (no JWT → no real authentication)
-
-Clean folder structure for both frontend & backend
-
-Modal-based task creation/editing
-
-Toast notifications for validation
-
-Sidebar navigation with mobile hamburger menu
+Sidebar + mobile menu
 
 📂 Folder Structure
+
 Backend
+
 backend/
 │── server.js
 │── config/
@@ -72,51 +58,43 @@ backend/
 │    └── taskController.js
 │── package.json
 
+
 Frontend
+
 frontend/
 │── src/
 │    ├── components/
-│    │    ├── Sidebar.jsx
-│    │    ├── TaskList.jsx
-│    │    ├── TaskCard.jsx
-│    │    └── AddTaskModal.jsx
 │    ├── services/
-│    │    └── api.js
 │    ├── pages/
-│    │    └── Landing.jsx
 │    ├── App.jsx
 │    └── main.jsx
 │── tailwind.config.js
 │── package.json
 
-📑 Features Overview
 
-✔ Add, Edit, Delete Tasks
-✔ Search Tasks in Real-time
-✔ Status Filtering (Pending / In-Progress / Completed)
-✔ Pagination (handled fully in backend)
-✔ Responsive Sidebar + Mobile Hamburger Menu
-✔ Clean UI using Tailwind
-✔ Single static dummy user (no login)
+📌 Getting Started (Local Setup)
 
-📌 Getting Started
-Clone the Repo
-git clone your-repo-url
-
-📦 Backend Setup
+🔧 Backend Setup
 cd backend
 npm install
 npm start
+
+
+Make sure to add your MongoDB connection string in a .env file as:
+MONGO_URI=your_mongodb_url
 
 💻 Frontend Setup
 cd frontend
 npm install
 npm run dev
 
+
+Ensure backend runs on default port 5000, or update api.js accordingly.
+
 📝 Notes
 
-No authentication implemented. Static dummy user for demo purposes.
+No authentication; uses a static dummy user but any id and password will pass intentionaly did this for ease.
 
-Designed as per task requirements with proper folder separation and responsive layout.
+Developed as per assignment requirements.
 
-Backend is deployed on Render; frontend on Vercel.
+Backend deployed on Render, frontend on Vercel.
