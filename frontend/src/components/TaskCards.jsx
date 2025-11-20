@@ -1,4 +1,4 @@
-import { Edit, Trash2 } from "lucide-react"; // optional icons (install: npm i lucide-react)
+import { Edit, Trash2 } from "lucide-react";
 
 export default function TaskCard({ task, onEdit, onDelete }) {
   return (
@@ -8,7 +8,7 @@ export default function TaskCard({ task, onEdit, onDelete }) {
         <h3 className="font-semibold text-lg">{task.title}</h3>
         <p className="text-gray-600 text-sm mt-1">{task.description}</p>
 
-        {/* Status */}
+        {/* Status Badge */}
         <span
           className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium
             ${
@@ -18,13 +18,13 @@ export default function TaskCard({ task, onEdit, onDelete }) {
                 ? "bg-blue-100 text-blue-700"
                 : "bg-green-100 text-green-700"
             }
-        `}
+          `}
         >
           {task.status}
         </span>
       </div>
 
-      {/* Right side (buttons) */}
+      {/* Buttons */}
       <div className="flex gap-3 ml-4">
         <button
           onClick={() => onEdit(task)}
@@ -34,7 +34,7 @@ export default function TaskCard({ task, onEdit, onDelete }) {
         </button>
 
         <button
-          onClick={() => onDelete(task.id)}
+          onClick={() => onDelete(task._id)}
           className="p-2 rounded hover:bg-gray-100"
         >
           <Trash2 className="w-5 h-5 text-red-600" />
