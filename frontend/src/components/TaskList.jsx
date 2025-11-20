@@ -1,14 +1,14 @@
 import { useState } from "react";
+import AddTaskModal from "./AddTaskModal";
 import TaskCard from "./TaskCards";
-
-export default function TaskList({
-  tasks,
-  onAddTask,
-  onEditTask,
-  onDeleteTask,
-}) {
+export default function TaskList({ tasks, onEditTask, onDeleteTask }) {
   const [search, setSearch] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  // const [tasks, setTasks] = useState([]);
 
+  const handleAddTask = () => {
+    // setTasks([...tasks, task]); // you may replace with backend API call
+  };
   const filtered = tasks.filter((t) =>
     t.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -26,7 +26,7 @@ export default function TaskList({
         />
 
         <button
-          onClick={onAddTask}
+          onClick={() => setModalOpen(true)}
           className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 shadow"
         >
           + Add Task
@@ -48,6 +48,11 @@ export default function TaskList({
           ))
         )}
       </div>
+      <AddTaskModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onAddTask={handleAddTask}
+      />
     </div>
   );
 }
